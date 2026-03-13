@@ -1,6 +1,6 @@
 {
-  "name": "expense-app",
-  "short_name": "expense-app",
+  "name": "budget-app",
+  "short_name": "budget-app",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -19,3 +19,4 @@
   ]
 
 }
+
