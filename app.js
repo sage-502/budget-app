@@ -1,5 +1,6 @@
 let data = { months:{} };
 let currentMonth = "";
+let editingId = null;
 
 const CATEGORY_DEFAULT_BUDGETS = {
 food:300000,
@@ -176,7 +177,20 @@ date:date.value,
 memo:memo.value
 };
 
+if(editingId){
+
+const transactions = getTransactions();
+const index = transactions.findIndex(t=>t.id===editingId);
+
+transactions[index] = { ...transaction, id: editingId };
+
+editingId = null;
+
+}else{
+
 getTransactions().push(transaction);
+
+}
 
 saveData();
 
@@ -208,7 +222,10 @@ row.innerHTML=`
 <td>${t.amount}</td>
 <td>${t.payment}</td>
 <td>${t.memo || ""}</td>
-<td><button class="deleteBtn" data-id="${t.id}">✕</button></td>
+<td>
+<button class="editBtn" data-id="${t.id}">✏</button>
+<button class="deleteBtn" data-id="${t.id}">✕</button>
+</td>
 `;
 
 list.appendChild(row);
@@ -228,6 +245,29 @@ saveData();
 
 renderTransactions();
 renderDashboard();
+
+});
+
+});
+
+document.querySelectorAll(".editBtn").forEach(btn=>{
+
+btn.addEventListener("click",()=>{
+
+const id=Number(btn.dataset.id);
+
+const transaction=getTransactions().find(t=>t.id===id);
+
+amount.value=transaction.amount;
+category.value=transaction.category;
+payment.value=transaction.payment;
+date.value=transaction.date;
+memo.value=transaction.memo;
+
+editingId = id;
+
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+document.getElementById("add").classList.add("active");
 
 });
 
@@ -287,8 +327,6 @@ totalCard.innerHTML=`
 <div class="progressBar" style="width:${percent}%; background:${color}"></div>
 </div>
 `;
-
-container.appendChild(totalCard);
 
 container.appendChild(totalCard);
 
@@ -486,14 +524,6 @@ const saved=localStorage.getItem("budgetAppData");
 if(saved){
 data=JSON.parse(saved);
 }
-
-}
-
-
-function getTotalExpense(){
-
-return getTransactions()
-.reduce((sum,t)=>sum+t.amount,0);
 
 }
 
