@@ -94,16 +94,12 @@ color:#333;
 }
 
 table{
-width:100%;
-border-collapse:collapse;
-background:white;
-border-radius:8px;
-overflow:hidden;
-font-size:13px
+overflow-x:auto;
+display:block;
 }
 
 td{
-word-break:break-word;
+white-space:nowrap;
 }
 
 th,td{
