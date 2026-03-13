@@ -246,11 +246,51 @@ return getTransactions()
 }
 
 
+function getTotalExpense(){
+
+return getTransactions()
+.reduce((sum,t)=>sum+t.amount,0);
+
+}
+
+
+function getTotalBudget(){
+
+return Object.values(getBudgets())
+.reduce((sum,b)=>sum+b,0);
+
+}
+
 
 function renderDashboard(){
 
 const container=document.getElementById("budgetCards");
 container.innerHTML="";
+
+const totalExpense = getTotalExpense();
+const totalBudget = getTotalBudget();
+
+const percent = Math.min((totalExpense/totalBudget)*100,100);
+const remaining = totalBudget - totalExpense;
+
+const color = totalExpense > totalBudget ? "#ff4d4f" : "#4CAF50";
+
+const totalCard=document.createElement("div");
+totalCard.className="card";
+
+totalCard.innerHTML=`
+<h3>Total</h3>
+<div>${totalExpense.toLocaleString()} / ${totalBudget.toLocaleString()}</div>
+<div>Remaining: ${remaining.toLocaleString()}</div>
+
+<div class="progress">
+<div class="progressBar" style="width:${percent}%; background:${color}"></div>
+</div>
+`;
+
+container.appendChild(totalCard);
+
+container.appendChild(totalCard);
 
 const budgets=getBudgets();
 
@@ -269,8 +309,8 @@ card.className="card";
 
 card.innerHTML=`
 <h3>${category}</h3>
-<div>${expense} / ${budget}</div>
-<div>Remaining: ${remaining}</div>
+<div>${expense.toLocaleString()} / ${budget.toLocaleString()}</div>
+<div>Remaining: ${remaining.toLocaleString()}</div>
 
 <div class="progress">
 <div class="progressBar" style="width:${percent}%; background:${color}"></div>
@@ -449,6 +489,13 @@ data=JSON.parse(saved);
 
 }
 
+
+function getTotalExpense(){
+
+return getTransactions()
+.reduce((sum,t)=>sum+t.amount,0);
+
+}
 
 
 init();
