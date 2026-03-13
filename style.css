@@ -123,16 +123,36 @@ font-weight:bold;
 }
 
 .deleteBtn{
-background:#24242424;
+background:#515151;
 color:white;
 border:none;
-padding:5px 8px;
+padding:4px 6px;
+font-size:14px;
 border-radius:2px;
 cursor:pointer;
 }
 
 .deleteBtn:hover{
-background:#24242424;
+background:#3a3a3a;
+}
+
+.deleteBtn:active{
+background:#3a3a3a;
+}
+
+
+.editBtn{
+padding:4px 6px;
+font-size:14px;
+border-radius:2px;
+}
+
+.editBtn:hover{
+background:#3a3a3a;
+}
+
+.editBtn:active{
+background:#3a3a3a;
 }
 
 .monthNav{
