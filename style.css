@@ -68,6 +68,10 @@ border:none;
 border-radius:6px;
 }
 
+button:active{
+background:#3a3a3a;
+}
+
 .bottomNav{
 position:fixed;
 bottom:0;
@@ -208,4 +212,16 @@ padding:5px;
 border:1px solid #ccc;
 border-radius:4px;
 text-align:right;
+}
+
+.totalCard{
+background:#222;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+.totalAmount{
+font-size:28px;
+font-weight:bold;
 }
