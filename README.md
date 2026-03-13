@@ -68,6 +68,6 @@ This project was created as a lightweight personal alternative that works offlin
 
 ## License
 
-MIT
+Unlicense
 
 ※ Made by chatGPT including this doc.
