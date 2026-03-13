@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Budget Tracker</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#4CAF50">
+
+</head>
+
+<body>
+
+<header class="header">
+
+<h1>Budget Tracker</h1>
+
+<div class="monthNav">
+<button id="prevMonth">◀</button>
+<span id="currentMonth"></span>
+<button id="nextMonth">▶</button>
+</div>
+
+</header>
+
+<main>
+
+<!-- Dashboard -->
+<section id="dashboard" class="screen active">
+  <h2>Dashboard</h2>
+
+  <div id="budgetCards" class="cardContainer">
+    <!-- JS로 카드 생성 -->
+  </div>
+
+</section>
+
+<!-- Add Transaction -->
+<section id="add" class="screen">
+
+<h2>Add</h2>
+
+<form id="expenseForm">
+
+<label>amount</label>
+<input type="number" id="amount" required>
+
+<label>category</label>
+<select id="category"></select>
+
+<label>payment</label>
+<select id="payment"></select>
+
+<label>date</label>
+<input type="date" id="date">
+
+<label>memo</label>
+<input type="text" id="memo">
+
+<button type="submit">save</button>
+
+</form>
+
+</section>
+
+<!-- Transaction List -->
+<section id="transactions" class="screen">
+
+<h2>Transactions</h2>
+
+<table id="transactionTable">
+
+<thead>
+<tr>
+<th>Date</th>
+<th>Category</th>
+<th>Amount</th>
+<th>Payment</th>
+<th>Note</th>
+<th></th>
+</tr>
+</thead>
+
+<tbody id="transactionList">
+</tbody>
+
+</table>
+
+</section>
+
+<!-- Budget Settings -->
+<section id="budget" class="screen">
+
+<h2>Budget</h2>
+
+<div id="budgetInputs"></div>
+
+<div class="budgetSave">
+<button id="saveBudget">Save Budget</button>
+</div>
+
+<div class="dataActions">
+<button id="exportMonth">Export JSON</button>
+
+<label class="importBtn">
+Import JSON
+<input type="file" id="importMonth">
+</label>
+
+<button id="deleteMonth" class="danger">Delete Month</button>
+</div>
+
+</section>
+
+</main>
+
+<nav class="bottomNav">
+
+<button data-screen="dashboard">dashboard</button>
+<button data-screen="add">add</button>
+<button data-screen="transactions">transactions</button>
+<button data-screen="budget">budget</button>
+
+</nav>
+
+<script src="app.js"></script>
+
+<script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+</body>
+</html>
