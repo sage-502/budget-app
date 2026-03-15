@@ -45,11 +45,25 @@ document.getElementById("categoryPopup").classList.add("hidden");
 }
 
 
+function getLocalDateString(){
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth()+1).padStart(2,"0");
+const day = String(now.getDate()).padStart(2,"0");
+return `${year}-${month}-${day}`;
+}
+
+function getLocalMonthString(){
+const now = new Date();
+const year = now.getFullYear();
+const month = String(now.getMonth()+1).padStart(2,"0");
+return `${year}-${month}`;
+}
+
 
 function setCurrentMonth(){
 
-const now = new Date();
-currentMonth = now.toISOString().slice(0,7);
+currentMonth = getLocalMonthString();
 
 document.getElementById("currentMonth").textContent = currentMonth;
 
@@ -158,7 +172,7 @@ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
 document.getElementById(btn.dataset.screen).classList.add("active");
 
 if(btn.dataset.screen === "add"){
-date.value = new Date().toISOString().slice(0,10);
+date.value = getLocalDateString();
 }
 
 });
@@ -171,7 +185,7 @@ date.value = new Date().toISOString().slice(0,10);
 
 function setupExpenseForm(){
 
-date.value = new Date().toISOString().slice(0,10);
+date.value = getLocalDateString();
 
 const form = document.getElementById("expenseForm");
 
@@ -209,7 +223,7 @@ renderTransactions();
 renderDashboard();
 
 form.reset();
-date.value = new Date().toISOString().slice(0,10);
+date.value = getLocalDateString();
 
 });
 
