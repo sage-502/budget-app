@@ -37,6 +37,11 @@ renderDashboard();
 renderTransactions();
 renderBudgetInputs();
 
+document.getElementById("closePopup")
+.addEventListener("click",()=>{
+document.getElementById("categoryPopup").classList.add("hidden");
+});
+
 }
 
 
@@ -162,6 +167,8 @@ document.getElementById(btn.dataset.screen).classList.add("active");
 
 function setupExpenseForm(){
 
+date.value = new Date().toISOString().slice(0,10);
+
 const form = document.getElementById("expenseForm");
 
 form.addEventListener("submit",(e)=>{
@@ -198,6 +205,7 @@ renderTransactions();
 renderDashboard();
 
 form.reset();
+date.value = new Date().toISOString().slice(0,10);
 
 });
 
@@ -210,7 +218,9 @@ function renderTransactions(){
 const list=document.getElementById("transactionList");
 list.innerHTML="";
 
-const sorted=[...getTransactions()].sort((a,b)=>b.id-a.id);
+const sorted=[...getTransactions()].sort(
+(a,b)=> new Date(a.date) - new Date(b.date)
+);
 
 sorted.forEach(t=>{
 
@@ -219,7 +229,7 @@ const row=document.createElement("tr");
 row.innerHTML=`
 <td>${t.date}</td>
 <td>${t.category}</td>
-<td>${t.amount}</td>
+<td>${t.amount.toLocaleString()}</td>
 <td>${t.payment}</td>
 <td>${t.memo || ""}</td>
 <td>
@@ -357,7 +367,45 @@ card.innerHTML=`
 
 container.appendChild(card);
 
+card.addEventListener("click",()=>{
+openCategoryPopup(category);
 });
+
+});
+
+}
+
+
+function openCategoryPopup(category){
+
+const popup=document.getElementById("categoryPopup");
+const list=document.getElementById("popupList");
+const title=document.getElementById("popupTitle");
+
+title.textContent = `${category} transactions`;
+
+list.innerHTML="";
+
+const transactions=getTransactions()
+.filter(t=>t.category===category)
+.sort((a,b)=> new Date(a.date)-new Date(b.date));
+
+transactions.forEach(t=>{
+
+const row=document.createElement("tr");
+
+row.innerHTML=`
+<td>${t.date}</td>
+<td>${t.amount.toLocaleString()}</td>
+<td>${t.payment}</td>
+<td>${t.memo||""}</td>
+`;
+
+list.appendChild(row);
+
+});
+
+popup.classList.remove("hidden");
 
 }
 
