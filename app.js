@@ -157,6 +157,10 @@ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
 
 document.getElementById(btn.dataset.screen).classList.add("active");
 
+if(btn.dataset.screen === "add"){
+date.value = new Date().toISOString().slice(0,10);
+}
+
 });
 
 });
